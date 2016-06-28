@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Movie Covers</string>
+    <string name="loading">Loading</string>
+    <string name="default_error_msg">Error</string>
+    <string name="fragment_title_favourites">Favourites</string>
+    <string name="fragment_title_recommended">Recommended</string>
+    <string name="network_error">You are disconnected, please check you internet connection and try again.</string>
+    <string name="server_error">Server error</string>
+    <string name="no_results">No results found</string>
+</resources>
