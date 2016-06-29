@@ -4,12 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import net.albertogarrido.moviecovers.R;
 import net.albertogarrido.moviecovers.data.RepositoryInjector;
@@ -17,6 +15,7 @@ import net.albertogarrido.moviecovers.data.entities.MovieCover;
 import net.albertogarrido.moviecovers.listcovers.CoversListContract;
 import net.albertogarrido.moviecovers.listcovers.tabs.CoversAdapter;
 import net.albertogarrido.moviecovers.listcovers.tabs.TabFragment;
+import net.albertogarrido.moviecovers.util.Config;
 import net.albertogarrido.moviecovers.util.EndlessScrollListener;
 import net.albertogarrido.moviecovers.util.Utils;
 
@@ -37,7 +36,7 @@ public class RecommendedFragment
     private CoversListContract.UserActionsListener presenter;
     private CoversAdapter adapter;
 
-    @Bind(R.id.covers_list) RecyclerView recyclerView;
+    @Bind(R.id.covers_list) RecyclerView mRecyclerView;
 //    @Bind(R.id.static_loading_indicator) TextView staticLoadingIndicator;
 //    @Bind(R.id.error_indicator) TextView errorIndicator;
 
@@ -90,13 +89,14 @@ public class RecommendedFragment
     @Override
     public void populateCovers(List<MovieCover> covers) {
 
-        recyclerView.setVisibility(View.VISIBLE);
+        mRecyclerView.setVisibility(View.VISIBLE);
     //        staticLoadingIndicator.setVisibility(View.GONE);
     //        errorIndicator.setVisibility(View.GONE);
 
         if (adapter == null) {
             adapter = new CoversAdapter(covers, getContext());
-            recyclerView.setAdapter(adapter);
+            adapter.setType(Config.ADAPTER_TYPE_GRID);
+            mRecyclerView.setAdapter(adapter);
         } else {
             adapter.addToList(covers);
         }
@@ -109,14 +109,16 @@ public class RecommendedFragment
     }
 
     private void configureRecyclerView() {
-        recyclerView.setHasFixedSize(true);
+        mRecyclerView.setHasFixedSize(true);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
 
-        recyclerView.setLayoutManager(gridLayoutManager);
-//        recyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setLayoutManager(gridLayoutManager);
+//        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getActivity(), R.dimen.item_offset);
+//        mRecyclerView.addItemDecoration(itemDecoration);
+//        mRecyclerView.setLayoutManager(mLayoutManager);
 
-        recyclerView.addOnScrollListener(new EndlessScrollListener(gridLayoutManager) {
+        mRecyclerView.addOnScrollListener(new EndlessScrollListener(gridLayoutManager) {
             @Override
             public void onLoadMore(int currentPage) {
                 presenter.incrementPage();

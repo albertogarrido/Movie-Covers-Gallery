@@ -9,6 +9,7 @@ import java.util.List;
  */
 public interface CoversRepository {
 
+
     interface LoadCoversCallback {
         void onCoversLoaded(List<MovieCover> movieCovers);
 
@@ -24,6 +25,8 @@ public interface CoversRepository {
     void getFavouriteCovers(LoadCoversCallback callback);
 
     void getRecommendedCovers(int page, LoadCoversCallback callback);
+
+    void searchMovies(int page, String query, LoadCoversCallback callback);
 
     void getCover(int coverId, LoadCoversCallback callback);
 

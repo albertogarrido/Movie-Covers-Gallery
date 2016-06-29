@@ -30,23 +30,32 @@ public class APIRepository implements CoversRepository {
 
     @Override
     public void getRecommendedCovers(int page, final LoadCoversCallback callback) {
-        final TheMovieDBAPI reviewsApiService = TheMovieDBAPI.retrofit.create(TheMovieDBAPI.class);
+        final TheMovieDBAPI coversApiService = TheMovieDBAPI.retrofit.create(TheMovieDBAPI.class);
 
-        Call<ApiResponse> reviews = reviewsApiService.getTopRatedMovies(
+        Call<ApiResponse> recommendedCoversCall = coversApiService.getTopRatedMovies(
                 page,
                 Config.API_KEY
         );
+        executeCall(recommendedCoversCall, callback);
+    }
 
-        reviews.enqueue(new Callback<ApiResponse>() {
+    @Override
+    public void searchMovies(int page, String query, final LoadCoversCallback callback) {
+        final TheMovieDBAPI coversApiService = TheMovieDBAPI.retrofit.create(TheMovieDBAPI.class);
+
+        Call<ApiResponse> coversSearchCall = coversApiService.searchMovie(
+                page,
+                query,
+                Config.API_KEY
+        );
+        executeCall(coversSearchCall, callback);
+    }
+
+    private void executeCall(Call<ApiResponse> coversCall, final LoadCoversCallback callback) {
+        coversCall.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
-                if (response.body() == null) {
-                    callback.onCoversFailed(new Exception(context.getResources().getString(R.string.server_error)));
-                } else if (response.body().getMovieCovers() == null || response.body().getMovieCovers().size() <= 0) {
-                    callback.onCoversFailed(new Exception(context.getResources().getString(R.string.no_results)));
-                } else {
-                    callback.onCoversLoaded(response.body().getMovieCovers());
-                }
+                processResponse(response, callback);
             }
 
             @Override
@@ -55,6 +64,16 @@ public class APIRepository implements CoversRepository {
             }
 
         });
+    }
+
+    private void processResponse(Response<ApiResponse> response, LoadCoversCallback callback) {
+        if (response.body() == null) {
+            callback.onCoversFailed(new Exception(context.getResources().getString(R.string.server_error)));
+        } else if (response.body().getMovieCovers() == null || response.body().getMovieCovers().size() <= 0) {
+            callback.onCoversFailed(new Exception(context.getResources().getString(R.string.no_results)));
+        } else {
+            callback.onCoversLoaded(response.body().getMovieCovers());
+        }
     }
 
     @Override

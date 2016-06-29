@@ -25,6 +25,13 @@ public interface TheMovieDBAPI {
             @Query("api_key") String apiKey
     );
 
+    @GET(Config.SEARCH_BY_TITLE)
+    Call<ApiResponse> searchMovie (
+            @Query("page") int page,
+            @Query("query") String query,
+            @Query("api_key") String apiKey
+    );
+
     HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC);
     OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 

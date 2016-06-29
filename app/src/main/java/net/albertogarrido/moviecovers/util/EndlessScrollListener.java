@@ -1,6 +1,5 @@
 package net.albertogarrido.moviecovers.util;
 
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -21,10 +20,14 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
 
     private int current_page = 1;
 
-    private GridLayoutManager layoutManager;
+    private LinearLayoutManager layoutManager;
 
-    public EndlessScrollListener(RecyclerView.LayoutManager layoutManager) {
-        this.layoutManager = (GridLayoutManager) layoutManager;
+    public EndlessScrollListener(LinearLayoutManager layoutManager) {
+//        if(Objects.equals(type, Config.ENDLESS_LAYOUT_TYPE_GRID)){
+            this.layoutManager = layoutManager;
+//        } else {
+//            this.layoutManager = (LinearLayoutManager) layoutManager;
+//        }
     }
 
     @Override

@@ -25,6 +25,11 @@ public class DBRepository implements CoversRepository {
     }
 
     @Override
+    public void searchMovies(int page, String query, LoadCoversCallback callback) {
+        // does nothing for now, this use case would be useful to search the stored movie covers
+    }
+
+    @Override
     public void getCover(int coverId, LoadCoversCallback callback) {
 
     }

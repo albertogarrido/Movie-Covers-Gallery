@@ -7,4 +7,6 @@
     <string name="network_error">You are disconnected, please check you internet connection and try again.</string>
     <string name="server_error">Server error</string>
     <string name="no_results">No results found</string>
+    <string name="search_covers">Tap here to search covers</string>
+    <string name="search_hint">Search here</string>
 </resources>
