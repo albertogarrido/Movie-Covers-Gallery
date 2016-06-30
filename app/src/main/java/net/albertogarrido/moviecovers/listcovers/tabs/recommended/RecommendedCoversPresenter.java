@@ -1,7 +1,5 @@
 package net.albertogarrido.moviecovers.listcovers.tabs.recommended;
 
-import android.util.Log;
-
 import net.albertogarrido.moviecovers.R;
 import net.albertogarrido.moviecovers.data.CoversRepository;
 import net.albertogarrido.moviecovers.data.entities.MovieCover;
@@ -26,10 +24,12 @@ public class RecommendedCoversPresenter implements CoversListContract.UserAction
     }
 
     @Override
-    public void loadMovieCovers() {
+    public void loadMovieCovers(boolean showLoadingIndicator) {
         if (Utils.isConnectionActive(view.getContext())) {
             repository.getRecommendedCovers(page, this);
-            view.startLoadingIndicator();
+            if(showLoadingIndicator){
+                view.startLoadingIndicator();
+            }
         } else {
             view.stopLoadingIndicator();
             view.displayNetworkError(view.getContext().getResources().getString(R.string.network_error));

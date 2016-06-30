@@ -75,12 +75,11 @@ public class RecommendedFragment
         super.onActivityCreated(savedInstanceState);
         configureRecyclerView();
         presenter = new RecommendedCoversPresenter(this, RepositoryInjector.getAPIRepository(getContext()));
-        presenter.loadMovieCovers();
+        presenter.loadMovieCovers(true);
     }
 
     @Override
     public void startLoadingIndicator() {
-        Log.e("TAG", "Starting loading indicator");
         if (!mSwipeRefreshLayout.isRefreshing()){
             mSwipeRefreshLayout.setRefreshing(true);
         }
@@ -140,7 +139,7 @@ public class RecommendedFragment
     public void onRefresh() {
         mAdapter = null;
         populateCovers(new ArrayList<MovieCover>());
-        presenter.loadMovieCovers();
+        presenter.loadMovieCovers(true);
     }
 
     private void configureRecyclerView() {
@@ -154,8 +153,7 @@ public class RecommendedFragment
             @Override
             public void onLoadMore(int currentPage) {
                 presenter.incrementPage();
-                Log.e("TAG" , "EndlessScrollListener::onLoadMore");
-                presenter.loadMovieCovers();
+                presenter.loadMovieCovers(false);
             }
 
             @Override

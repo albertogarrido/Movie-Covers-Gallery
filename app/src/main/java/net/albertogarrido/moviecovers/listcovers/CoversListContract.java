@@ -19,7 +19,7 @@ public interface CoversListContract {
     }
 
     interface UserActionsListener extends MvpContract.Listener {
-        void loadMovieCovers();
+        void loadMovieCovers(boolean showLoadingIndicator);
         void incrementPage();
     }
 }
