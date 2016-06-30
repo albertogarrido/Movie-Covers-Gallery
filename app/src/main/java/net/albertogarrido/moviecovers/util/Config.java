@@ -24,6 +24,4 @@ public class Config {
 
     public static final String ADAPTER_TYPE_GRID = "grid";
     public static final String ADAPTER_TYPE_LIST = "list";
-    public static final String ENDLESS_LAYOUT_TYPE_GRID = "grid";
-    public static final String ENDLESS_LAYOUT_TYPE_LINEAR = "linear";
 }

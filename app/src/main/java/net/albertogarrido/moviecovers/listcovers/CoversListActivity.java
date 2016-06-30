@@ -1,21 +1,26 @@
 package net.albertogarrido.moviecovers.listcovers;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import net.albertogarrido.moviecovers.R;
+import net.albertogarrido.moviecovers.listcovers.tabs.ViewPagerAdapter;
 import net.albertogarrido.moviecovers.listcovers.tabs.favourites.FavouritesFragment;
 import net.albertogarrido.moviecovers.listcovers.tabs.recommended.RecommendedFragment;
-import net.albertogarrido.moviecovers.listcovers.tabs.ViewPagerAdapter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class CoversListActivity extends SearchableActivity {
+
+
+    public static SparseArray<Bitmap> sCoverCollection = new SparseArray<>(1);
 
     @Bind(R.id.view_pager) ViewPager mViewPager;
     @Bind(R.id.tab_layout) TabLayout mTabLayout;

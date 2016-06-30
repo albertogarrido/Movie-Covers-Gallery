@@ -21,7 +21,7 @@
             >
 
             <ImageView
-                android:id="@+id/cover"
+                android:id="@+id/search_cover"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
@@ -32,8 +32,8 @@
                 android:id="@+id/movie_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/cover"
-                android:layout_toRightOf="@+id/cover"
+                android:layout_toEndOf="@+id/search_cover"
+                android:layout_toRightOf="@+id/search_cover"
                 android:padding="4dp"
                 android:text="Title"
                 android:textStyle="bold"/>
@@ -43,8 +43,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/movie_title"
-                android:layout_toEndOf="@+id/cover"
-                android:layout_toRightOf="@+id/cover"
+                android:layout_toEndOf="@+id/search_cover"
+                android:layout_toRightOf="@+id/search_cover"
                 android:padding="4dp"
                 android:text="Original title"
                 android:textStyle="italic"/>
@@ -54,8 +54,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/movie_title_original"
-                android:layout_toEndOf="@+id/cover"
-                android:layout_toRightOf="@+id/cover"
+                android:layout_toEndOf="@+id/search_cover"
+                android:layout_toRightOf="@+id/search_cover"
                 android:padding="4dp"
                 android:text="1999-01-01"/>
 
@@ -64,8 +64,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/movie_release_date"
-                android:layout_toEndOf="@+id/cover"
-                android:layout_toRightOf="@+id/cover"
+                android:layout_toEndOf="@+id/search_cover"
+                android:layout_toRightOf="@+id/search_cover"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:padding="4dp"

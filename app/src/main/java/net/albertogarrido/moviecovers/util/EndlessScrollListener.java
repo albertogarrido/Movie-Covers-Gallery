@@ -23,11 +23,7 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
     private LinearLayoutManager layoutManager;
 
     public EndlessScrollListener(LinearLayoutManager layoutManager) {
-//        if(Objects.equals(type, Config.ENDLESS_LAYOUT_TYPE_GRID)){
             this.layoutManager = layoutManager;
-//        } else {
-//            this.layoutManager = (LinearLayoutManager) layoutManager;
-//        }
     }
 
     @Override

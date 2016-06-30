@@ -9,4 +9,9 @@
     <string name="no_results">No results found</string>
     <string name="search_covers">Tap here to search covers</string>
     <string name="search_hint">Search here</string>
+    <string name="msg_image_not_loaded">Cover not yet ready. Please wait until the cover is visible.</string>
+    <string name="title_prompt">Title</string>
+    <string name="original_title_prompt">Original title</string>
+    <string name="release_date_prompt">Release date</string>
+    <string name="overview_prompt">Overview</string>
 </resources>

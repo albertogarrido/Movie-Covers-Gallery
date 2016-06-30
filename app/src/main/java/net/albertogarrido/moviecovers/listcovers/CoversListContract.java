@@ -19,7 +19,6 @@ public interface CoversListContract {
     }
 
     interface UserActionsListener extends MvpContract.Listener {
-//        void submitReview(Review review);
         void loadMovieCovers();
         void incrementPage();
     }

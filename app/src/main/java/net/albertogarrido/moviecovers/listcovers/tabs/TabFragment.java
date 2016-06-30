@@ -3,7 +3,6 @@ package net.albertogarrido.moviecovers.listcovers.tabs;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 
-import net.albertogarrido.moviecovers.R;
 import net.albertogarrido.moviecovers.listcovers.CoversListContract;
 
 /**
@@ -13,9 +12,8 @@ public abstract class TabFragment extends Fragment implements CoversListContract
 
     protected void setupSwipeRefreshLayout(SwipeRefreshLayout swipeRefreshLayout, SwipeRefreshLayout.OnRefreshListener listener) {
         swipeRefreshLayout.setOnRefreshListener(listener);
-        swipeRefreshLayout.setDistanceToTriggerSync(180);// in dips
+        swipeRefreshLayout.setDistanceToTriggerSync(180);
         swipeRefreshLayout.setSize(SwipeRefreshLayout.DEFAULT);
-//        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.primary_700));
     }
 
     protected void startRefreshing(final SwipeRefreshLayout swipeRefreshLayout) {

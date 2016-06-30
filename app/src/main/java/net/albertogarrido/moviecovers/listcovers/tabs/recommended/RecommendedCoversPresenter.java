@@ -2,9 +2,11 @@ package net.albertogarrido.moviecovers.listcovers.tabs.recommended;
 
 import android.util.Log;
 
+import net.albertogarrido.moviecovers.R;
 import net.albertogarrido.moviecovers.data.CoversRepository;
 import net.albertogarrido.moviecovers.data.entities.MovieCover;
 import net.albertogarrido.moviecovers.listcovers.CoversListContract;
+import net.albertogarrido.moviecovers.util.Utils;
 
 import java.util.List;
 
@@ -25,7 +27,13 @@ public class RecommendedCoversPresenter implements CoversListContract.UserAction
 
     @Override
     public void loadMovieCovers() {
-        repository.getRecommendedCovers(page, this);
+        if (Utils.isConnectionActive(view.getContext())) {
+            repository.getRecommendedCovers(page, this);
+            view.startLoadingIndicator();
+        } else {
+            view.stopLoadingIndicator();
+            view.displayNetworkError(view.getContext().getResources().getString(R.string.network_error));
+        }
     }
 
     @Override
@@ -35,15 +43,12 @@ public class RecommendedCoversPresenter implements CoversListContract.UserAction
 
     @Override
     public void onCoversLoaded(List<MovieCover> movieCovers) {
+        view.stopLoadingIndicator();
         view.populateCovers(movieCovers);
-//        for(MovieCover movieCover : movieCovers){
-//            Log.d("RECOMMENDED", movieCover.getOriginalTitle() + " - " + movieCover.getTitle());
-//        }
     }
 
     @Override
     public void onCoversFailed(Exception e) {
-        Log.e("RECOMMENDED", e.getMessage());
-
+        view.displayNoDataMessage(e.getMessage());
     }
 }

@@ -1,7 +1,11 @@
 package net.albertogarrido.moviecovers.searchcovers;
 
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,9 +19,12 @@ import android.widget.TextView;
 import net.albertogarrido.moviecovers.R;
 import net.albertogarrido.moviecovers.data.RepositoryInjector;
 import net.albertogarrido.moviecovers.data.entities.MovieCover;
-import net.albertogarrido.moviecovers.listcovers.tabs.CoversAdapter;
+import net.albertogarrido.moviecovers.detailcover.CoverDetailActivity;
+import net.albertogarrido.moviecovers.listcovers.CoversListActivity;
 import net.albertogarrido.moviecovers.util.Config;
+import net.albertogarrido.moviecovers.util.CoversAdapter;
 import net.albertogarrido.moviecovers.util.EndlessScrollListener;
+import net.albertogarrido.moviecovers.util.RecyclerItemListener;
 import net.albertogarrido.moviecovers.util.Utils;
 
 import java.util.List;
@@ -28,13 +35,14 @@ import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import butterknife.OnTextChanged;
 
-public class SearchActivity extends AppCompatActivity implements SearchContract.View {
+public class SearchActivity extends AppCompatActivity implements SearchContract.View, RecyclerItemListener {
 
     @Bind(R.id.search_field) EditText mSearchField;
     @Bind(R.id.delete_search_term) ImageView mDeleteSearchText;
     @Bind(R.id.search_recycler) RecyclerView mSearchRecycler;
 
     private SearchContract.UserActionsListener mPresenter;
+    private CoversAdapter mAdapter;
     private String mQuery;
 
     @Override
@@ -108,12 +116,13 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         } else if (inputText.length() > 2) {
             if (Utils.isConnectionActive(getContext())) {
                 configureRecyclerView();
+                // TODO add feedback to the view
 //                startLoadingIndicator();
                 mPresenter = new SearchPresenter(this, RepositoryInjector.getAPIRepository(getContext()));
                 mQuery = inputText.toString();
                 mPresenter.searchMovies(mQuery);
             } else {
-                //TODO
+                // TODO add feedback to the view
 //                stopLoadingIndicator();
 //                displayNetworkError(getResources().getString(R.string.network_error));
             }
@@ -152,9 +161,47 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     @Override
     public void populateCovers(List<MovieCover> covers) {
         mSearchRecycler.setVisibility(View.VISIBLE);
-        CoversAdapter adapter = new CoversAdapter(covers, getContext());
-        adapter.setType(Config.ADAPTER_TYPE_LIST);
-        mSearchRecycler.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        mAdapter = new CoversAdapter(covers, getContext());
+        mAdapter.addRecyclerItemListener(this);
+        mAdapter.setType(Config.ADAPTER_TYPE_LIST);
+        mSearchRecycler.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void onItemTouch(View view, int adapterPosition) {
+
+
+        Intent coverDetailIntent = new Intent(getContext(), CoverDetailActivity.class);
+
+        MovieCover cover = mAdapter.getItemsList().get(adapterPosition);
+
+        ImageView mCoverImage = (ImageView) view.findViewById(R.id.search_cover);
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) mCoverImage.getDrawable();
+
+        coverDetailIntent.putExtra(CoverDetailActivity.EXTRA_COVER, cover);
+
+        coverDetailIntent.putExtra(CoverDetailActivity.EXTRA_COVER_POSITION, adapterPosition);
+
+
+        if (cover.isImageLoaded() || bitmapDrawable != null) {
+
+            String name = CoverDetailActivity.SHARED_ELEMENT;
+
+            //necessary step to prevent TransactionTooLargeException when passing huge bitmaps as extra
+            CoversListActivity.sCoverCollection.put(0, bitmapDrawable.getBitmap());
+
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, mCoverImage, name);
+
+            startActivity(coverDetailIntent, options.toBundle());
+
+        } else {
+            Snackbar.make(
+                    view,
+                    getContext().getResources().getString(R.string.msg_image_not_loaded),
+                    Snackbar.LENGTH_SHORT
+            ).show();
+        }
+    }
+
 }

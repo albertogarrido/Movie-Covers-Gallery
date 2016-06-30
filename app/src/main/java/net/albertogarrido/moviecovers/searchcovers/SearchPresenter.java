@@ -35,12 +35,12 @@ public class SearchPresenter implements SearchContract.UserActionsListener, Cove
 
     @Override
     public void onCoversLoaded(List<MovieCover> movieCovers) {
-        Log.d(TAG, "Successful search num of items: " + movieCovers.size());
         view.populateCovers(movieCovers);
     }
 
     @Override
     public void onCoversFailed(Exception e) {
+        // TODO add feedback to the view
         Log.d(TAG, "Failed search: " + e.getMessage());
     }
 }
