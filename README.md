@@ -22,8 +22,9 @@ Features in the requirements:
   - Endless scroll, every time the user reach the bottom of the current set a new set is loaded.
   - Lazy load and caching of images using [Picasso](http://square.github.io/picasso/).
   - Transition animation when open detail.
+  - Pull to refresh
 - Detail: display full size image along with the details of the movie.
-  - Parallax animation.
+  - Parallax animation to scroll down.
 
 Extra features: 
 

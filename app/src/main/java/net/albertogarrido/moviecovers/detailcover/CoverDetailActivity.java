@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,6 +53,12 @@ public class CoverDetailActivity extends SearchableActivity implements CoverDeta
 
         mPresenter = new CoverDetailPresenter(this);
         mPresenter.parseData();
+
+        showScrollHint();
+    }
+
+    private void showScrollHint() {
+        Snackbar.make(mAppBarLayout, getResources().getString(R.string.hint_scroll), Snackbar.LENGTH_LONG).show();
     }
 
     @Override
