@@ -58,7 +58,7 @@ public class CoverDetailActivity extends SearchableActivity implements CoverDeta
     }
 
     private void showScrollHint() {
-        Snackbar.make(mAppBarLayout, getResources().getString(R.string.hint_scroll), Snackbar.LENGTH_LONG).show();
+        Snackbar.make(mAppBarLayout, getResources().getString(R.string.hint_scroll), Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
