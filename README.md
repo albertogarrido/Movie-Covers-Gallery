@@ -20,7 +20,7 @@ Features in the requirements:
 
 - List of recommended covers by popular movies (it changes every week).
   - Endless scroll, every time the user reach the bottom of the current set a new set is loaded.
-  - Lazy load and caching using [Picasso](http://square.github.io/picasso/).
+  - Lazy load and caching of images using [Picasso](http://square.github.io/picasso/).
   - Animation when open detail.
 - Detail: display full size image along with the details of the movie.
   - Parallax animation.
