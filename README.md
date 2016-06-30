@@ -28,8 +28,9 @@ Features in the requirements:
 
 Extra features: 
 
-- Search functionality
+- Live search functionality
   - Search by title.
+  - Get results while typing.
   - Display details of the movie in the list.
   - Animation when opening the detail.
 
