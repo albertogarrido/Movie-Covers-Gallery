@@ -10,18 +10,18 @@
 
 Android 5.1 or superior
 
-Tested in Samsung galaxy s6 and Oneplus One.
+Tested in Samsung Galaxy S6 (6.0.1) and Oneplus One (5.1.1).
 
 ### Description and features
 
-App that displays movie covers using [the movie db](https://www.themoviedb.org). 
+Image gallery app that displays movie covers using [the movie db](https://www.themoviedb.org). 
 
 Features in the requirements:
 
 - List of recommended covers by popular movies (it changes every week).
   - Endless scroll, every time the user reach the bottom of the current set a new set is loaded.
   - Lazy load and caching of images using [Picasso](http://square.github.io/picasso/).
-  - Animation when open detail.
+  - Transition animation when open detail.
 - Detail: display full size image along with the details of the movie.
   - Parallax animation.
 
